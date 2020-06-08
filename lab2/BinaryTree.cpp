@@ -101,3 +101,9 @@ BinaryTree::~BinaryTree()
 {
 	DeleteNodesTree();
 }
+
+void BinaryTree::SetRoot(TreeNode* roo)
+{
+	root = roo;
+}
+

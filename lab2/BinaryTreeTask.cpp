@@ -5,19 +5,18 @@
 
 using namespace std;
 
-void CreateMinimalBST(int start[], int first, int last)
+TreeNode* BinaryTree::CreateMinimalBST(int start[], int first, int last)
 {
-	BinaryTree *tree = new BinaryTree();
-	int count = (last - first) / 2;
-	if ((last - first) % 2 > 0)
-		tree->Insert(start[count++]);
-	else tree->Insert(start[count]);
+	if (last < first)
+		return nullptr;
 
-	for (int i = count + 1; i <= last; i++)
-		tree->Insert(start[i]);
-	for (int i = count - 1; i >= first; i--)
-		tree->Insert(start[i]);
-	tree->PrintValue();
+	const int mid = (first + last) / 2;
+	auto treeN = new TreeNode(start[mid]);
+
+	treeN->setLeft(CreateMinimalBST(start, first, mid - 1));
+	treeN->setRight(CreateMinimalBST(start, mid + 1, last));
+
+	return treeN;
 }
 
 int main() 
@@ -38,6 +37,8 @@ int main()
 	delete tree;
 
 	//Task 2
+	BinaryTree tree2;
 	int start[9] = { 1,5,6,8,11,14,18,36,97 };
-	CreateMinimalBST(start, 0, 8);
+	tree2.SetRoot(tree2.CreateMinimalBST(start, 0, 8));
+	tree2.PrintValue(); 
 }
